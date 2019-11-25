@@ -2,7 +2,10 @@
 /**
  * @author : Lehlohonolo Motsoeneng
  * @description: Create a search functionality when a textbox is clicked
+ * @version: 1.0
  */
+
+ // Global variable to capture the element class to be filtered on search
 let elClass;
 $(document).ready(function() {
 
@@ -46,14 +49,31 @@ function filterContent (inputText) {
      */
         
     $('.'+elClass).filter(function() {
-      $(this).toggle($(this).find('h2').find('a').text().toLowerCase().indexOf(inputText) > -1)
+       
+      const a = 'a';
+      let htag = checkForHtag (elClass);
+      
+      //if($(this))
+      $(this).toggle($(this).find(htag).find('a').text().toLowerCase().indexOf(inputText) > -1)
+
     });
+
+    function checkForHtag(divClass) { 
+
+      // hasHtag = $('.'+divClass).find("h1").length;
+      // let hTag;
+      // check if has h tag and return h tag
+      if (hasHtag > 0) {
+        if ($('.news-sec-h').is('h1,h2,h3,h4,h5')) {
+          hTag = $(this).get(0).tagName;
+        }
+        
+        return hTag;
+      }
+    }
         
 }
 
-function bindTags (terms) {
-  console.log(terms);
-}
 
 
 
