@@ -1,12 +1,15 @@
 
 /**
  * @author : Lehlohonolo Motsoeneng
- * @description: Create a search functionality when a textbox is clicked
+ * @github : https://github.com/Hlokolozar/
+ * @description: Create a search functionality when a textbox is clicked.
  * @version: 1.0
  */
 
- // Global variable to capture the element class to be filtered on search
+ // Global variables to capture the element class to be filtered on search
 let elClass;
+let primaryHtag;
+
 $(document).ready(function() {
 
   // All events on document ready
@@ -14,8 +17,10 @@ $(document).ready(function() {
 });
 
 function elementToFilter(htmlClass) {
-  // console.log(htmlClass);
+ 
    elClass = htmlClass;
+   primaryHtag = checkForHtag (elClass);
+
 }
 
 $("input").click(function(event) {
@@ -38,41 +43,42 @@ function clickedTextBox(txtBoxId){
   });
 }
 
-
-
 function filterContent (inputText) {
 
     /**
      * @input : String
      * @description: Filter content according to the provided value
-     * @output : filtering value captured on textbox
+     * @output : ''
      */
         
     $('.'+elClass).filter(function() {
-       
       const a = 'a';
-      let htag = checkForHtag (elClass);
-      
-      //if($(this))
-      $(this).toggle($(this).find(htag).find('a').text().toLowerCase().indexOf(inputText) > -1)
-
+      $(this).toggle($(this).find(primaryHtag).find(a).text().toLowerCase().indexOf(inputText) > -1)
     });
-
-    function checkForHtag(divClass) { 
-
-      // hasHtag = $('.'+divClass).find("h1").length;
-      // let hTag;
-      // check if has h tag and return h tag
-      if (hasHtag > 0) {
-        if ($('.news-sec-h').is('h1,h2,h3,h4,h5')) {
-          hTag = $(this).get(0).tagName;
-        }
-        
-        return hTag;
-      }
-    }
         
 }
+
+function checkForHtag(divClass) { 
+  /**
+   * @input : String
+   * @description: Check if the given class has any H tag, and return
+   *               the first found H tag in parent element 
+   * @output : String
+  */
+
+  let hasHtag;
+  let hTag;
+  for (let x=1; x <= htmlCount; x++) {
+    hasHtag = $('.'+divClass).find("h"+x).length;
+    if (hasHtag > 0) {
+      hTag = $('h'+x).get(0).tagName;
+      break;
+    }
+  }
+
+  return hTag;
+}
+
 
 
 
